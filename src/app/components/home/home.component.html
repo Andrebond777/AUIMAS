@@ -1,0 +1,33 @@
+
+    <main class="main">
+      <div class="content">
+
+        <div>
+            <input [(ngModel)]="inputChatData" placeholder="Type your message here..." />
+            <button (click)="chat()">Submit</button>
+            <div *ngIf="response">
+              <p>{{ response }}</p>
+            </div>
+          </div>
+          <div class="search-container">
+            <!-- <form> -->
+              <input [(ngModel)]="searchStr" type="text" placeholder="Search.." name="search">
+              <button (click)="search()"><i class="fa fa-search"></i></button>
+            <!-- </form> -->
+          </div>
+        <div class="searchResults">
+          <ul>
+            <div *ngFor="let entry of searchResults;">
+            <li>
+              <a [href]="entry.searchRes.url">{{entry.searchRes.title}}</a> <button (click)="summarize(entry.id!)">Summarize</button>
+              <h3>Abstract</h3>
+              <p>{{entry.searchRes.abstract}}</p>
+              <h3>Summary</h3>
+              <p>{{entry.summarized}}</p>
+            </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </main>
+  
