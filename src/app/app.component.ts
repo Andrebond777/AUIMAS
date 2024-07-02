@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private toast: NgToastService, private sharedService: SharedService){ 
     //waiting for window to load
+
     if(typeof window !== 'undefined'){
       //checking whether proficiency and preferred language are selected
       let preferredLanguage = localStorage.getItem(this.prefLngKey);

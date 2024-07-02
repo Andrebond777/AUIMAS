@@ -17,10 +17,12 @@ export class SettingsComponent {
   selectedLanguage = "";
   proficiencyLvl = 0;
   isStorageEmpty = true;
-
+  enableTranslations = false;
+  enableDefinitions = true;
 
   constructor(private router: Router, private toast: NgToastService, private sharedService: SharedService)
   {
+
     if(typeof window !== 'undefined'){
       this.selectedLanguage = localStorage.getItem(this.prefLngKey) || "";
       this.proficiencyLvl = Number(localStorage.getItem(this.engProfciencyKey)) || 0;

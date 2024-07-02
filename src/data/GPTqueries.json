@@ -1,0 +1,6 @@
+{
+    "queries": [
+    "summarize what this text is about  (maximum size of the summary must not be more than a third of the number of words in the original text)",
+    "define key words"
+    ]
+}

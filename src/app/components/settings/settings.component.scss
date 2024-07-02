@@ -1,0 +1,19 @@
+.body{
+	margin: auto;
+	font-family: 'Arial';
+	border: 3px solid green;
+	padding: 10px;
+	font-size: 20px;
+	div{
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+	.slider {
+		appearance: none;
+		width: 300px;
+		background: #828282;
+		outline: none;
+		border-radius: 10px;
+	}
+}

@@ -1,17 +1,33 @@
-<div>
-    <label>Select your preferred language:</label>
+<div class="body">
     <div>
-        <select [(ngModel)]="selectedLanguage">
-            <option *ngFor="let x of supportedLanguages;" [value]="x">{{x}}</option>
-        </select>
+        <label>Select your preferred language:</label>
+            <select [(ngModel)]="selectedLanguage">
+                <option *ngFor="let x of supportedLanguages;" [value]="x">{{x}}</option>
+            </select>
     </div>
+    <div>
+        <label>Select your proficiency in English from 0 to 100:</label>
+
+            <input type="range" min="0" max="100" value="0" [(ngModel)]="proficiencyLvl" class="slider" id="myRange">
+
+            {{proficiencyLvl}}
+
+
+    </div>
+    <div>
+        <label id="keyWords" for="keyWords">Key words: </label>
+    </div>
+    <div>
+
+
+            <label id="translations" for="translations">Translate: <input type="checkbox" name="translations" [(ngModel)]="enableTranslations"></label>
+
+                <label  id="definitions" for="definitions">Provide definitions: <input type="checkbox" name="definitions" [(ngModel)]="enableDefinitions"></label>
+            </div>
+    <div>
+        <button (click)="save()">Save</button>
+    </div>
+
+
 </div>
 
-<div>
-    <label>Select your proficiency in English from 0 to 100:</label>
-    <div>
-        <input type="range" min="0" max="100" value="0" [(ngModel)]="proficiencyLvl" class="slider" id="myRange">
-    </div>
-    <p>{{proficiencyLvl}}</p>
-</div>
-<button (click)="save()">Save</button>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { SearchApiService } from '../../services/search-api.service';
 import { searchResToDsiplay } from '../../../models/searchResToDisplay';
 import { userData } from '../../../models/userData';
@@ -27,6 +27,29 @@ export class HomeComponent {
 
   userDataS! : userData;
 
+  selectedID = 0;
+
+
+
+
+  text="blabla \*bold\* blabla"
+
+  handleSelectedElement(id : number) 
+  {
+    this.selectedID = id;
+    this.summarize(id);
+    this.defineKeyWords(id);
+  }
+
+  getElementColor(id : number)
+  {
+    if(id == this.selectedID)
+      return {'background-color': 'whitesmoke'};
+    else
+      return {'background-color': 'white'};
+  }
+
+
   constructor(private searchApiService: SearchApiService, private chatService: ChatServiceService){ 
     if(typeof window !== 'undefined'){
       let preferredLanguage = localStorage.getItem(this.prefLngKey);
@@ -39,7 +62,8 @@ export class HomeComponent {
   }
 
   async summarize(id : number){
-    await this.chatService.chat("Firstly, summarize what this text is about  (maximum size of the summary must not be more than a third of the number of words in the original text). Secondly, define key words. TEXT: " + this.searchResults[id].searchRes.abstract).then((data) => {
+    await this.chatService.chat("In " + this.userDataS.language + " summarize what this text is about  (maximum size of the summary must not be more than a third of the number of words in the original text). ORIGINAL TEXT: "
+       + this.searchResults[id].searchRes.abstract).then((data) => {
       data.subscribe(result =>
         this.searchResults[id].summarized = result
       );
@@ -48,24 +72,22 @@ export class HomeComponent {
     });
   }
 
-  async chat()
-  {
-    await this.chatService.chat(this.inputChatData).then((data) => {
+  async defineKeyWords(id : number){
+    await this.chatService.chat("Return a text with key words surrounded by <strong> opening and </strong> closing tags. ORIGINAL TEXT: "
+       + this.searchResults[id].searchRes.abstract).then((data) => {
       data.subscribe(result =>
-        this.response = result
+        this.searchResults[id].searchRes.abstract = result
       );
     }).catch((error) => {
       console.error(error);  // Will print "Error: Operation failed!" if the promise is rejected
     });
-    
-    return this.response;
   }
-
   
   async search()
   {
     await this.searchApiService.getSearchResults(this.searchStr).then((data) => {
       this.searchResults = data;
+
     }).catch((error) => {
       console.error(error);  // Will print "Error: Operation failed!" if the promise is rejected
     });

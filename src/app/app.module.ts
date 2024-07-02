@@ -9,12 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BoldTextPipe } from './pipes/boldening-pipe.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SettingsComponent
+    SettingsComponent,
+    BoldTextPipe
   ],
   imports: [
     BrowserModule,
