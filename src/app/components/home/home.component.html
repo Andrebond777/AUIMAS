@@ -6,19 +6,33 @@
               <button (click)="search()"><i class="fa fa-search"></i></button>
           </div>
         <div class="split searchResults">
-          <ul >
+          <ul>
             <div *ngFor="let entry of searchResults;">
             <li (click)="handleSelectedElement(entry.id!)" [ngStyle]="getElementColor(entry.id!)">
               <a [href]="entry.searchRes.url">{{entry.searchRes.title}}</a> 
-              <h3>Abstract</h3>
-              <p [innerHTML]="entry.searchRes.abstract | boldText"></p>
+              <h3 >Abstract</h3>
+              <mat-spinner *ngIf="entry.searchRes.abstract.length == 0"></mat-spinner>
+              <p *ngIf="entry.searchRes.abstract.length > 0" [innerHTML]="entry.searchRes.abstract"></p>
             </li>
             </div>
           </ul>
         </div>
         <div class="split srchResExplanation">
-          <h3>Summary</h3>
-          <p>{{searchResults[selectedID].summarized}}</p>
+          <div *ngIf="searchResults[selectedID]">
+            <h3>Summary</h3>
+
+              <p >{{searchResults[selectedID].summarized}}</p>
+
+
+            <h3>Key words:</h3>
+            <ul>
+              <div *ngFor="let kw of getKeyWordsFromText();">
+                <li>
+                  <p>{{kw}}</p>
+                </li>
+              </div>
+            </ul>
+          </div>
         </div>
       </div>
     </main>

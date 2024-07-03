@@ -4,5 +4,6 @@ export class searchResToDsiplay{
     id?: number;
     searchRes: searchRes = new searchRes();
     summarized = "";
-    abstractWithKeyWords = "";
+    abstractShortenedWithKeyWords = "";
+    keyWords : string[] = [];
 }

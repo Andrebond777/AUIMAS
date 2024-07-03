@@ -7,8 +7,14 @@ import { Subject } from 'rxjs';
 export class SharedService {
 
   @Output() showTopNavEvent = new EventEmitter<void>();
+  @Output() sendKeyWords = new EventEmitter<string[]>();
 
   emitShowTopNav(){
     this.showTopNavEvent.emit();
+  }
+
+  emitSendKeyWords(keyWords : string[])
+  {
+    this.sendKeyWords.emit(keyWords);
   }
 }
