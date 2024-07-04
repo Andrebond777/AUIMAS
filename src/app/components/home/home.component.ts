@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { SearchApiService } from '../../services/search-api.service';
 import { searchResToDsiplay } from '../../../models/searchResToDisplay';
 import { userData } from '../../../models/userData';
@@ -41,8 +41,6 @@ export class HomeComponent {
       {
         await this.summarize();
         await this.defineKeyWords();
-        
-        //this.getKeyWordsList();
       }
     }
   }
@@ -55,17 +53,9 @@ export class HomeComponent {
       return {'background-color': 'white'};
   }
 
-  ngOnDestroy(): void {
-    this.getKeyWordsSubscription?.unsubscribe();
-  }
 
-  getKeyWordsSubscription: Subscription | undefined;
-  
-  ngOnInit(): void {
-    this.getKeyWordsSubscription = this.sharedService.sendKeyWords.subscribe((keyWords) => this.searchResults[this.selectedID].keyWords = keyWords);
-  }
 
-  constructor(private searchApiService: SearchApiService, private chatService: ChatServiceService, private sharedService: SharedService){ 
+  constructor(private searchApiService: SearchApiService, private chatService: ChatServiceService){ 
     if(typeof window !== 'undefined'){
       let preferredLanguage = localStorage.getItem(this.prefLngKey);
       let englishProficiency = localStorage.getItem(this.engProfciencyKey);
@@ -74,36 +64,28 @@ export class HomeComponent {
         this.userDataS = new userData(preferredLanguage, Number(englishProficiency));
       }
     }
+
   }
 
-  generateSummarizeQuery()
-  {
-    
-  }
 
   getKeyWordsFromText() : string[]
   {
-    let matches = this.searchResults[this.selectedID].searchRes.abstract.match(/\<strong>([^,*]+)\<\/strong>/g);
+    if(this.searchResults[this.selectedID].keyWords.length > 0)
+      return this.searchResults[this.selectedID].keyWords;
+    let matches = this.searchResults[this.selectedID].searchRes.abstract.match(/\<strong>(.*?)\<\/strong>/gsm);
     let result : string[] = [];
     if(matches)
     {
       for(let i = 0; i < matches!.length; i++)
         {
-          let newString = matches![i].substring(matches![i].indexOf('<strong>') + 8, matches![i].indexOf('</strong>'));
+          let newString = matches![i].substring(matches![i].indexOf('<strong>') + 8, matches![i].indexOf('</strong>')).toUpperCase();
           if(!result.includes(newString))
             result.push(newString);
         }
     }
+    this.searchResults[this.selectedID].keyWords = result!;
     return result!;
   }
-
-  // getAbstract(id : number)
-  // {
-  //   if(this.searchResults[id].abstractShortenedWithKeyWords != "")
-  //     return this.searchResults[id].abstractShortenedWithKeyWords;
-  //   else
-  //     return this.searchResults[id].searchRes.abstract;
-  // }
 
   async summarize(){
     await this.chatService.chat("In " + this.userDataS.language + " summarize what this text is about  (maximum size of the summary must not be more than a third of the number of words in the original text). ORIGINAL TEXT: "
@@ -128,22 +110,10 @@ export class HomeComponent {
     });
   }
 
-  // async getKeyWordsList(){
-  //   await this.chatService.chat("Return a JSON list of keywords of the given text. ORIGINAL TEXT: "
-  //      + this.searchResults[this.selectedID].searchRes.abstract).then((data) => {
-  //     data.subscribe(result =>
-  //       this.searchResults[this.selectedID].keyWords = JSON.parse(result).keywords
-  //     );
-  //   }).catch((error) => {
-  //     console.error(error);  // Will print "Error: Operation failed!" if the promise is rejected
-  //   });
-  // }
-  
   async search()
   {
     await this.searchApiService.getSearchResults(this.searchStr).then((data) => {
       this.searchResults = data;
-
     }).catch((error) => {
       console.error(error);  // Will print "Error: Operation failed!" if the promise is rejected
     });

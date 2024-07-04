@@ -20,16 +20,17 @@
         <div class="split srchResExplanation">
           <div *ngIf="searchResults[selectedID]">
             <h3>Summary</h3>
-
-              <p >{{searchResults[selectedID].summarized}}</p>
-
-
-            <h3>Key words:</h3>
+            <mat-spinner *ngIf="searchResults[selectedID].summarized.length == 0"></mat-spinner>
+            <p *ngIf="searchResults[selectedID].summarized.length > 0">{{searchResults[selectedID].summarized}}</p>
+            <h3>Key words</h3>
             <ul>
-              <div *ngFor="let kw of getKeyWordsFromText();">
-                <li>
-                  <p>{{kw}}</p>
-                </li>
+              <mat-spinner *ngIf="getKeyWordsFromText().length == 0"></mat-spinner>
+              <div *ngIf="getKeyWordsFromText().length > 0">
+                <div *ngFor="let kw of this.searchResults[this.selectedID].keyWords;">
+                  <li>
+                    <p>{{kw}}</p>
+                  </li>
+                </div>
               </div>
             </ul>
           </div>

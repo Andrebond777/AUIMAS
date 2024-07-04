@@ -29,8 +29,6 @@ export class AppComponent implements OnInit, OnDestroy {
       //checking whether proficiency and preferred language are selected
       let preferredLanguage = localStorage.getItem(this.prefLngKey);
       let englishProficiency = localStorage.getItem(this.engProfciencyKey);
-      console.log(preferredLanguage);
-      console.log(englishProficiency);
       if(preferredLanguage && englishProficiency)
         this.isShowTopNav = true;
       else
