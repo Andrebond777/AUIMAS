@@ -108,6 +108,9 @@
               "../node_modules/jquery/dist/jquery.js"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
