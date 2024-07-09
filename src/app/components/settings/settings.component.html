@@ -6,24 +6,11 @@
             </select>
     </div>
     <div>
-        <label>Select your proficiency in English from 0 to 100:</label>
-
-            <input type="range" min="0" max="100" value="0" [(ngModel)]="proficiencyLvl" class="slider" id="myRange">
-
-            {{proficiencyLvl}}
-
-
+        <label>Select your proficiency in English:</label>
+        <select [(ngModel)]="selectedProficiency">
+            <option *ngFor="let x of proficiencyLevels;" [value]="x">{{x}}</option>
+        </select>
     </div>
-    <div>
-        <label id="keyWords" for="keyWords">Key words: </label>
-    </div>
-    <div>
-
-
-            <label id="translations" for="translations">Translate: <input type="checkbox" name="translations" [(ngModel)]="enableTranslations"></label>
-
-                <label  id="definitions" for="definitions">Provide definitions: <input type="checkbox" name="definitions" [(ngModel)]="enableDefinitions"></label>
-            </div>
     <div>
         <button (click)="save()">Save</button>
     </div>

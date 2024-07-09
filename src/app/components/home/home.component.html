@@ -9,26 +9,51 @@
           <ul>
             <div *ngFor="let entry of searchResults;">
             <li (click)="handleSelectedElement(entry.id!)" [ngStyle]="getElementColor(entry.id!)">
-              <a [href]="entry.searchRes.url">{{entry.searchRes.title}}</a> 
-              <h3 >Abstract</h3>
+              <h3 class="paperTitle"><a [href]="entry.searchRes.url">{{entry.searchRes.title}}</a></h3>
+              <h4>Abstract</h4>
               <mat-spinner *ngIf="entry.searchRes.abstract.length == 0"></mat-spinner>
               <p *ngIf="entry.searchRes.abstract.length > 0" [innerHTML]="entry.searchRes.abstract"></p>
             </li>
             </div>
           </ul>
+          <div *ngIf="searchResults.length == 0">
+              <h4 class="banner">Search results will appear here!</h4>
+          </div>
         </div>
         <div class="split srchResExplanation">
           <div *ngIf="searchResults[selectedID]">
-            <h3>Summary</h3>
-            <mat-spinner *ngIf="searchResults[selectedID].summarized.length == 0"></mat-spinner>
-            <p *ngIf="searchResults[selectedID].summarized.length > 0">{{searchResults[selectedID].summarized}}</p>
-            <h3>Key words</h3>
+            <div class="summaryLngSlctn">
+              <span><h4 class="summaryAndKeyWords">Summary</h4></span>
+              <mat-radio-group aria-label="Select" [(ngModel)]="chosenSummaryLng" (change)="chosenSummaryLngChange()">
+                <mat-radio-button id="inPreferred" color="primary" value="inPreferred">In {{userDataS.language || "In Preferred Language"}}</mat-radio-button>
+                <mat-radio-button id="inEnglish" color="primary" value="inEnglish">In English</mat-radio-button>
+              </mat-radio-group>
+            </div>
+              <mat-spinner *ngIf="searchResults[selectedID].summarized.length == 0"></mat-spinner>
+            <p class="summary" *ngIf="searchResults[selectedID].summarized.length > 0">{{searchResults[selectedID].summarized}}</p>
+            <h4 class="summaryAndKeyWords">Key words</h4>
+            <mat-spinner *ngIf="getKeyWordsFromText().length == 0"></mat-spinner>
             <ul>
-              <mat-spinner *ngIf="getKeyWordsFromText().length == 0"></mat-spinner>
+
               <div *ngIf="getKeyWordsFromText().length > 0">
-                <div *ngFor="let kw of this.searchResults[this.selectedID].keyWords;">
+                <div *ngFor="let kw of this.searchResults[this.selectedID].keyWords; index as i">
                   <li>
-                    <p>{{kw}}</p>
+                    <p><b>{{kw.title}}</b> <button (click)="getWordTranslationAndDefinition(i)"> definition</button></p> 
+                    <div class="definitionsLst">
+                      <div  *ngFor="let def of kw.meanings;">
+                          <h4 id="partOfSpeech">{{def.partOfSpeech}}</h4>
+                          <b *ngIf="def.definitions.length > 0">Definitions:</b>
+                          <span  *ngFor="let d of def.definitions;  index as j">
+                            {{d}} <span style="  color: #2196f3; " *ngIf="j < def.definitions.length-1">|</span>
+                          </span>
+                          <br>
+                          <b *ngIf="def.synonyms.length > 0">Synonyms:</b>
+                          <span class="synonyms" *ngFor="let s of def.synonyms; index as j">
+                            {{s}}<span style="  color: #2196f3; " *ngIf="j < def.synonyms.length-1"> |</span>
+                          </span>
+                      </div>
+                      <p *ngIf="kw.translations.length > 0">{{kw.translations}}</p>
+                    </div>
                   </li>
                 </div>
               </div>

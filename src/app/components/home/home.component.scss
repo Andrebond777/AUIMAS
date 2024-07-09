@@ -13,8 +13,36 @@
   button{
     margin-left: 10px;
     height: 45px;
-    width: 45px;
+    width: 60px;
+    border-radius: 10px;
   }
+
+
+}
+.paperTitle{
+  padding-top: 10px;
+  a{
+    color: #4050b5;
+    text-decoration: none; 
+
+  }
+}
+
+.summaryAndKeyWords{
+  color: #2196f3;
+  margin-left: 10px;
+}
+
+.summary{
+  margin-left: 20px;
+}
+
+
+.banner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4050b5;
 }
 
 .split {
@@ -24,12 +52,23 @@
   z-index: 1;
   overflow-x: hidden;
   margin-top: 40px;
+  border-top: 5px solid rgb(69, 69, 69);
 }
 /* Control the left side */
 .searchResults {
   left: 0;
-  margin-right: 20px;
-}
+  li{
+    margin-top: -1em;
+      padding-right: 20px;
+      margin-left: -50px;
+      padding-left: 25px;
+      padding-bottom: 10px;
+      border-bottom: 3px dotted rgb(69, 69, 69);
+    }
+    ul {
+      list-style-type: none;
+  }
+  }
 
 /* Control the right side */
 .srchResExplanation {
@@ -37,4 +76,36 @@
   background-color: whitesmoke;
   border-left: 5px solid rgb(69, 69, 69);
   margin-left: 10px;
+}
+
+.summaryLngSlctn{
+  display: inline-flex;
+  height: 60px;
+
+  mat-radio-group{
+    margin-left: 50px;
+    margin-top: 23px;
+  }
+}
+
+#inPreferred{
+  margin-right: 60px;
+}
+
+mat-spinner{
+
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+.definitionsLst{
+  font-size: 17px;
+margin-top: 0px;
+}  #partOfSpeech{
+  color: #4050b5; 
+  margin-bottom: 3px; 
+  margin-top: 10px;
 }

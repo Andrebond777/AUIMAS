@@ -1,7 +1,7 @@
 .body{
 	margin: auto;
 	font-family: 'Arial';
-	border: 3px solid green;
+	border: 3px solid #4050b5;
 	padding: 10px;
 	font-size: 20px;
 	div{
@@ -15,5 +15,8 @@
 		background: #828282;
 		outline: none;
 		border-radius: 10px;
+	}
+	.proficiencyLvl{
+		color: #4050b5;
 	}
 }

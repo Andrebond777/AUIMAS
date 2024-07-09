@@ -27,7 +27,7 @@ export class ChatServiceService implements OnInit {
       "messages": [{"role": "user", "content": inputData}],
       "temperature": 0.7
     };
-    return  this.http.post('https://api.openai.com/v1/chat/completions', body, { headers });
+    return this.http.post('https://api.openai.com/v1/chat/completions', body, { headers });
   }
 
   async chat(inputData: string){

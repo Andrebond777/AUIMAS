@@ -1,3 +1,4 @@
+import { keyWord } from './keyWord';
 import { searchRes } from './searchRes';
 
 export class searchResToDsiplay{
@@ -5,5 +6,5 @@ export class searchResToDsiplay{
     searchRes: searchRes = new searchRes();
     summarized = "";
     abstractShortenedWithKeyWords = "";
-    keyWords : string[] = [];
+    keyWords : keyWord[] = [];
 }

@@ -11,6 +11,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BoldTextPipe } from './pipes/boldening-pipe.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HttpClientModule,
     FormsModule,
     NgToastModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRadioModule
   ],
   providers: [
     provideClientHydration(),

@@ -17,7 +17,6 @@ export class SearchApiService {
     await this.http.get(`https://api.crossref.org/works?query=${query}&filter=has-abstract:true`).subscribe(async result => 
       {
         let parsed = JSON.parse(JSON.stringify(result));
-        console.log(parsed);
         let i = 0;
         let entry : any;
         while(entry = parsed["message"]["items"][i])
