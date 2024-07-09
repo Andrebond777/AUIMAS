@@ -8,5 +8,6 @@ export class keyWord{
     id?: number;
     title = "";
     meanings! : wordMeaning[];
+    gptMeaning : string = "";
     translations: string = "";
 }

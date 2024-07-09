@@ -9,14 +9,17 @@
 		justify-content: center;
 		margin-top: 20px;
 	}
-	.slider {
-		appearance: none;
-		width: 300px;
-		background: #828282;
-		outline: none;
-		border-radius: 10px;
-	}
+
 	.proficiencyLvl{
 		color: #4050b5;
+	}
+	input[type=checkbox] {
+		transform: scale(1.5);
+	}
+	button{
+		margin-top: -20px;
+	}
+	select{
+		width: 200px;
 	}
 }

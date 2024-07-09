@@ -18,8 +18,8 @@ export class SettingsComponent {
   selectedLanguage = "";
   selectedProficiency = "";
   enableSupport = false;
-  proficiencyLevels = ["A1 (Elementary)", "A2(Pre Intermediate)", "B1(Intermediate)",
-                       "B2(Upper Intermediate)", "C1(Advanced)", "C2(Proficient)"];
+  proficiencyLevels = ["A1 (Elementary)", "A2 (Pre Intermediate)", "B1 (Intermediate)",
+                       "B2 (Upper Intermediate)", "C1 (Advanced)", "C2 (Proficient)"];
   proficiencyLvl = 15;
   isStorageEmpty = true;
 
@@ -30,7 +30,8 @@ export class SettingsComponent {
     if(typeof window !== 'undefined'){
       this.selectedLanguage = localStorage.getItem(this.prefLngKey) || "";
       this.proficiencyLvl = Number(localStorage.getItem(this.engProfciencyKey)) || 15;
-      this.enableSupport = Boolean(localStorage.getItem(this.enableSupportKey)) || false;
+      this.enableSupport = JSON.parse(localStorage.getItem(this.enableSupportKey)!) || false;
+      console.log(this.enableSupport);
       this.selectedProficiency = this.proficiencyLevels[(this.proficiencyLvl / 15) - 1];
       if(this.selectedLanguage != "")
         this.isStorageEmpty = false;
@@ -48,6 +49,7 @@ export class SettingsComponent {
         this.proficiencyLvl = (this.proficiencyLevels.findIndex(x => x == this.selectedProficiency) + 1) * 15;
         localStorage.setItem(this.prefLngKey, this.selectedLanguage);
         localStorage.setItem(this.engProfciencyKey, this.proficiencyLvl.toString());
+        localStorage.setItem(this.enableSupportKey, this.enableSupport.toString());
         this.toast.success("Your preferrences have been successfully saved.", "Saved!", 2000);
         this.router.navigate(['/home']);
         if(this.isStorageEmpty)

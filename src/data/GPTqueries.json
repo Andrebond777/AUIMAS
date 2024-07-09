@@ -1,6 +1,6 @@
 {
-    "queries": [
-    "summarize what this text is about  (maximum size of the summary must not be more than a third of the number of words in the original text)",
-    "define key words"
+    "proficiencyLevelQueries": [
+    "Beginner Level: Provide a simple and concise summary using basic vocabulary and short sentences. Ensure it is easy to understand for someone with limited language skills.",
+    "Intermediate Level: Create a more detailed summary that includes some complex sentences and a moderate level of vocabulary. This summary should be suitable for someone who has a decent grasp of the language but may not understand very advanced terms."
     ]
 }

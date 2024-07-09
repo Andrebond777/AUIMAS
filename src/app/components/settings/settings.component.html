@@ -1,16 +1,20 @@
 <div class="body">
     <div>
-        <label>Select your preferred language:</label>
+        <label>Select your preferred language: </label>
             <select [(ngModel)]="selectedLanguage">
                 <option *ngFor="let x of supportedLanguages;" [value]="x">{{x}}</option>
             </select>
     </div>
     <div>
-        <label>Select your proficiency in English:</label>
+        <label>Select your proficiency in English: </label>
         <select [(ngModel)]="selectedProficiency">
             <option *ngFor="let x of proficiencyLevels;" [value]="x">{{x}}</option>
         </select>
     </div>
+    <div >
+        <label id="enableSupport" for="enableSupport">Enable support features: <input id="enableSupport" type="checkbox" name="enableSupport" [(ngModel)]="enableSupport"></label>
+    </div>
+    <div>
     <div>
         <button (click)="save()">Save</button>
     </div>
