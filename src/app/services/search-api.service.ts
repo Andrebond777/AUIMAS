@@ -11,26 +11,8 @@ export class SearchApiService {
   constructor(private http: HttpClient) {}
 
 
-  async getSearchResults(query : string)
+   getSearchResults(query : string) : any
   {
-    let searchResults : searchResToDsiplay[] = [];
-    await this.http.get(`https://api.crossref.org/works?query=${query}&filter=has-abstract:true`).subscribe(async result => 
-      {
-        let parsed = JSON.parse(JSON.stringify(result));
-        let i = 0;
-        let entry : any;
-        while(entry = parsed["message"]["items"][i])
-        {
-          let toDisplay = new searchResToDsiplay;
-          toDisplay.id = i;
-          toDisplay.searchRes.title = entry["title"];
-          toDisplay.searchRes.url = entry["URL"];
-          toDisplay.searchRes.abstract = entry["abstract"];
-          searchResults.push(toDisplay);
-          i++;
-        }
-      }
-    );
-    return searchResults;
+    return this.http.get(`https://api.crossref.org/works?query=${query}&filter=has-abstract:true`);
   }
 }

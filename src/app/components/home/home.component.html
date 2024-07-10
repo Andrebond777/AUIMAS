@@ -42,7 +42,7 @@
                   <path class="particle plus"/>
                 </g>
               </svg>
-              <input [(ngModel)]="searchStr" type=search name=q aria-label="Search for inspiration"/>
+              <input [(ngModel)]="searchStr" type=search name=q aria-label="Search for inspiration" (keydown.enter)="search()"/>
             </div>
               <button (click)="search(); scroll(scrollTarget);"><i class="fa fa-search"></i></button>
               <button class="translateSearchQuery" (click)="translateSearchQuery()">Translate search query</button>
@@ -52,9 +52,9 @@
             <div *ngFor="let entry of searchResults;">
             <li (click)="handleSelectedElement(entry.id!)" [ngStyle]="getElementColor(entry.id!)">
               <h3 class="paperTitle"><a [href]="entry.searchRes.url" target="_blank">{{entry.searchRes.title}}</a></h3>
-              <h4>Abstract</h4>
+              <h4 >Abstract</h4>
               <mat-spinner *ngIf="entry.searchRes.abstract.length == 0"></mat-spinner>
-              <p *ngIf="entry.searchRes.abstract.length > 0" [innerHTML]="entry.searchRes.abstract"></p>
+              <p  *ngIf="entry.searchRes.abstract.length > 0" [innerHTML]="entry.searchRes.abstract"></p>
             </li>
             </div>
           </ul>

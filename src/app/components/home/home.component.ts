@@ -102,7 +102,6 @@ export class HomeComponent {
       let preferredLanguage = localStorage.getItem(this.prefLngKey);
       let englishProficiency = localStorage.getItem(this.engProfciencyKey);
       this.enableSupport = JSON.parse(localStorage.getItem(this.enableSupportKey)!);
-      console.log(this.enableSupport);
       if(preferredLanguage && englishProficiency)
       {
         this.userDataS = new userData(preferredLanguage, Number(englishProficiency));
@@ -213,29 +212,35 @@ export class HomeComponent {
      this.dictionaryService.getDefinition(this.searchResults[this.selectedID].keyWords[wordID].title).then((data) => {
       this.searchResults[this.selectedID].keyWords[wordID].meanings = data;
       setTimeout(()=>{
-        console.log(this.searchResults[this.selectedID].keyWords[wordID].meanings);
         if(this.searchResults[this.selectedID].keyWords[wordID].meanings.length == 0)
           this.defineWordChatGPT(wordID);
       }, 1000);
     }).catch((error) => {
       console.error(error);  // Will print "Error: Operation failed!" if the promise is rejected
     });
-      
-    
   }
 
-  async search()
+   search()
   {
     this.selectedID = 0;
     this.searchResults = [];
-    await this.searchApiService.getSearchResults(this.searchStr).then((data) => {
-      this.searchResults = data;
-      if(this.selectedID == 0)
+    this.searchApiService.getSearchResults(this.searchStr).subscribe( (result: any) => 
+    {
+      let parsed = JSON.parse(JSON.stringify(result));
+      let i = 0;
+      let entry : any;
+      while(entry = parsed["message"]["items"][i])
       {
-        setTimeout(()=>{this.handleSelectedElement(0);}, 1000);
+        let toDisplay = new searchResToDsiplay;
+        toDisplay.id = i;
+        toDisplay.searchRes.title = entry["title"];
+        toDisplay.searchRes.url = entry["URL"];
+        toDisplay.searchRes.abstract = entry["abstract"];
+        this.searchResults.push(toDisplay);
+        i++;
       }
-    }).catch((error) => {
-      console.error(error);  // Will print "Error: Operation failed!" if the promise is rejected
-    });
+      this.handleSelectedElement(0);
+    }
+    );
   }
 }
